@@ -24,7 +24,8 @@ class CRUDTestCase(APITestCase):
     def test_post_method_for_assignments(self):
         url = reverse('list')
         data = {'id':2, 'title':'Test Works!', 'description':"Post method works",
-                "required_media":"Image", "deadline":"2017-09-01", "number_of_responses":4}
+                "required_media":"Image", "deadline":"2017-09-01", "number_of_responses":4,
+                "author":"Tester Mctesty", "location":"Nairobi,Kenya"}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Assignment.objects.count(), 1)
@@ -43,7 +44,8 @@ class CRUDTestCase(APITestCase):
     def test_update_method_for_assignments(self):
         url_1 = reverse('list')
         data = {'id':2, 'title':'Test Works!', 'description':"Post method works",
-                "deadline":"2017-09-01", "number_of_responses":4}
+                "deadline":"2017-09-01", "number_of_responses":4 ,
+                "author":"Tester Mctesty", "location":"Nairobi,Kenya"}
         self.client.post(url_1, data, format='json')
         url_2 = reverse('detail', args=(2,))
         data = {'title':'Put Works!', 'description':"Put method works",
@@ -56,7 +58,8 @@ class CRUDTestCase(APITestCase):
     
     def test_delete_method_for_assignments(self):
         data = {'id':2, 'title':'Test Works!', 'description':"Post method works",
-                "number_of_responses":4, "deadline":"2017-09-01"}
+                "number_of_responses":4, "deadline":"2017-09-01",
+                "author":"Tester Mctesty", "location":"Nairobi,Kenya"}
         url = reverse('list')
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
