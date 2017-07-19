@@ -13,6 +13,8 @@ class Assignment(models.Model):
     required_media = models.CharField(max_length=5, choices=MEDIA_CHOICES, default="Image")
     number_of_responses = models.IntegerField(blank=True)
     deadline = models.DateField()
+    author = models.CharField(max_length=100, default="Anonymous")
+    assignment_location= models.CharField(max_length=100, blank=True)
 
     class Meta:
         ordering = ('created',)
