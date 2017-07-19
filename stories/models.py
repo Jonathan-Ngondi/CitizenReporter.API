@@ -6,6 +6,7 @@ class Responses(models.Model):
     MEDIA_CHOICES = (('Image','image'),('Audio','audio'),('Video','video'))
 
     id = models.IntegerField(primary_key=True, blank=True)
+    owner = models.ForeignKey('auth.User', related_name='stories', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(null=False, max_length=250)
     why = models.TextField()
