@@ -7,11 +7,11 @@ class Assignment(models.Model):
     
     # Required Assignment class attributes 
     created = models.DateTimeField(auto_now_add=True)
-    id = models.IntegerField(primary_key=True)
+    id = models.IntegerField(primary_key=True, blank=True)
     title = models.CharField(max_length=250)
     description = models.CharField(max_length=500)
-    required_media = models.CharField(max_length=5, choices=MEDIA_CHOICES, default=None)
-    number_of_responses = models.IntegerField()
+    required_media = models.CharField(max_length=5, choices=MEDIA_CHOICES, default="Image")
+    number_of_responses = models.IntegerField(blank=True)
     deadline = models.DateField()
 
     class Meta:
