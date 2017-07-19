@@ -42,9 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-
-    'assignments.apps.AssignmentsConfig'
-
+    'assignments.apps.AssignmentsConfig',
     'stories.apps.StoriesConfig',
 ]
 
@@ -63,8 +61,7 @@ ROOT_URLCONF = 'CitizenReporter_API.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
