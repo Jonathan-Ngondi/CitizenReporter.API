@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'assignments.apps.AssignmentsConfig',
     'stories.apps.StoriesConfig',
+    'user_auth',
+
 ]
 
 MIDDLEWARE = [
