@@ -76,6 +76,13 @@ target/
 # celery beat schedule file
 celerybeat-schedule
 
+# Migration files
+*migrations/
+
+# db
+*.sqlite3
+
+
 # SageMath parsed files
 *.sage.py
 
@@ -99,3 +106,4 @@ ENV/
 
 # mypy
 .mypy_cache/
+
