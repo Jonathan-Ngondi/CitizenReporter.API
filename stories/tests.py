@@ -6,7 +6,6 @@ from django.core.urlresolvers import reverse
 from rest_framework.test import APITestCase
 from rest_framework.test import APIClient
 from rest_framework import status
-from django.contrib.auth.models import User
 
 from .models import Responses
 from .views import ResponsesList, ResponsesDetail
@@ -16,8 +15,7 @@ class ModelTestCase(TestCase):
 
     def setUp(self):
         '''Defines test client and test variable'''
-        user = User.objects.create(username="TestUser")
-        self.responses = Responses(title="Story Title", owner=user, why="Story Cause", when="2017-9-16", where="23.4",
+        self.responses = Responses(title="Story Title", why="Story Cause", when="2017-9-16", where="23.4",
                             who="People Involved", author="Author Name", author_id="Facebook ID", media="Image")
 
     def test_model_create_stories(self):
@@ -55,12 +53,9 @@ class ViewTestCase(TestCase):
 
     def setUp(self):
         '''Defines test client and test variables'''
-        user = User.objects.create(username="TestUser")
         self.client = APIClient()
-        self.client.force_authenticate(user=user)
         self.story_data = {
             "title": "Story Title",
-            'owner': user.id,
             "why": "Story Cause",
             "when": "2017-9-16",
             "where": "23.33",
@@ -81,15 +76,14 @@ class ViewTestCase(TestCase):
     def test_get_user_story(self):
         '''Test api can get story by user.'''
         new_client = APIClient()
-        response = new_client.get('/stories/user/<id>', kwargs={'pk': 3}, format="json")
+        response = new_client.get('/stories/user/<fb_id>', format="json")
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_get_stories(self):
         '''Test if api can get list of stories.'''
         story = Responses.objects.get()
         response = self.client.get(
-            '/stories/',
-            kwargs={'pk': story.id}, format="json")
+            '/stories/', format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertContains(response, story)
 
@@ -97,8 +91,7 @@ class ViewTestCase(TestCase):
         """Test the api can get a given story by id."""
         story = Responses.objects.get(id=1)
         response = self.client.get(
-            '/stories/<id>',
-            kwargs={'pk': story.id}, format="json")
+            '/stories/<id>', format="json")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertContains(response, story)
@@ -108,7 +101,7 @@ class ViewTestCase(TestCase):
         story = Responses.objects.get()
         new_story = {"title": "New Title"}
         response = self.client.put(
-            reverse('details', kwargs={'pk': story.id}),
+            reverse('details'),
             new_story, format='json'
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -117,7 +110,7 @@ class ViewTestCase(TestCase):
         '''Test api can delete story.'''
         story = Responses.objects.get()
         response = self.client.delete(
-            reverse('details', kwargs={'pk': story.id}),
+            reverse('details'),
             format='json',
             follow=True)
         self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
