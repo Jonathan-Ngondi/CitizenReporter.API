@@ -13,7 +13,7 @@ class Responses(models.Model):
     who = models.TextField()
     author = models.CharField(max_length=250, default="Anonymous")
     author_id = models.CharField(max_length=250)
-    media = models.FileField()
+    media = models.FileField(null=True, blank=True)
 
     class Meta:
         ordering = ('created',)
