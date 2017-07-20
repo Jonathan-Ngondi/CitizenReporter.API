@@ -3,10 +3,8 @@ from django.db import models
 
 class Responses(models.Model):
     '''Creates a model containing information about the story/stories submitted by users.'''
-    MEDIA_CHOICES = (('Image','image'),('Audio','audio'),('Video','video'))
 
     id = models.IntegerField(primary_key=True, blank=True)
-    owner = models.ForeignKey('auth.User', related_name='stories', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(null=False, max_length=250)
     why = models.TextField()
@@ -15,7 +13,7 @@ class Responses(models.Model):
     who = models.TextField()
     author = models.CharField(max_length=250, default="Anonymous")
     author_id = models.CharField(max_length=250)
-    media = models.CharField(choices=MEDIA_CHOICES, default=None, max_length=50)
+    media = models.FileField()
 
     class Meta:
         ordering = ('created',)
