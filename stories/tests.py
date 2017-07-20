@@ -6,18 +6,21 @@ from django.core.urlresolvers import reverse
 from rest_framework.test import APITestCase
 from rest_framework.test import APIClient
 from rest_framework import status
+from django.contrib.auth.models import User
 
-from models import Responses
+from .models import Responses
+from .views import ResponsesList, ResponsesDetail
 
 class ModelTestCase(TestCase):
     '''Defines the test suit for Responses model'''
 
     def setUp(self):
         '''Defines test client and test variable'''
-        self.responses = Responses(title="Story Title", why="Story Cause", when="2017-9-16", where="Location",
-                            who="People Involved", author="Author Name", author_id="Facebook ID",
-                            media="Image")
-    def test_respones_can_create_stories(self):
+        user = User.objects.create(username="TestUser")
+        self.responses = Responses(title="Story Title", owner=user, why="Story Cause", when="2017-9-16", where="23.4",
+                            who="People Involved", author="Author Name", author_id="Facebook ID", media="Image")
+
+    def test_model_create_stories(self):
         old_count = Responses.objects.count()
         self.responses.save()
         new_count = Responses.objects.count()
@@ -33,7 +36,7 @@ class ModelTestCase(TestCase):
         assert "2017-9-16" in self.responses.when
 
     def test_model_resposes_where(self):
-        assert "Location" in self.responses.where
+        assert "23.4" in self.responses.where
 
     def test_model_resposes_who(self):
         assert "People Involved" in self.responses.who
@@ -52,12 +55,15 @@ class ViewTestCase(TestCase):
 
     def setUp(self):
         '''Defines test client and test variables'''
+        user = User.objects.create(username="TestUser")
         self.client = APIClient()
+        self.client.force_authenticate(user=user)
         self.story_data = {
             "title": "Story Title",
+            'owner': user.id,
             "why": "Story Cause",
             "when": "2017-9-16",
-            "where": "Location",
+            "where": "23.33",
             "who": "People Involved",
             "author": "Author Name",
             "author_id": "Facebook ID",
@@ -67,3 +73,51 @@ class ViewTestCase(TestCase):
             reverse('create'),
             self.story_data,
             format="json")
+
+    def test_create_story(self):
+        '''Test api can create story'''
+        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+
+    def test_get_user_story(self):
+        '''Test api can get story by user.'''
+        new_client = APIClient()
+        response = new_client.get('/stories/user/<id>', kwargs={'pk': 3}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_get_stories(self):
+        '''Test if api can get list of stories.'''
+        story = Responses.objects.get()
+        response = self.client.get(
+            '/stories/',
+            kwargs={'pk': story.id}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertContains(response, story)
+
+    def test_get_story(self):
+        """Test the api can get a given story by id."""
+        story = Responses.objects.get(id=1)
+        response = self.client.get(
+            '/stories/<id>',
+            kwargs={'pk': story.id}, format="json")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertContains(response, story)
+
+    def test_update_story(self):
+        '''Test api can update story.'''
+        story = Responses.objects.get()
+        new_story = {"title": "New Title"}
+        response = self.client.put(
+            reverse('details', kwargs={'pk': story.id}),
+            new_story, format='json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_delete_story(self):
+        '''Test api can delete story.'''
+        story = Responses.objects.get()
+        response = self.client.delete(
+            reverse('details', kwargs={'pk': story.id}),
+            format='json',
+            follow=True)
+        self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
