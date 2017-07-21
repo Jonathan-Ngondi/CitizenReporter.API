@@ -25,4 +25,7 @@ urlpatterns = [
     url(r'^', include('stories.urls')),
     url(r'api/users', include(user_urls, namespace="user"))
 
+
+    url(r'^api', include('assignments.urls', namespace='assignments')),
+
 ]
