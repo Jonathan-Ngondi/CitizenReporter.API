@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+REST_FRAMEWORK = {
+
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+}
 
 # Application definition
 
@@ -39,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'user_auth',
+    'assignments'
 ]
 
 MIDDLEWARE = [
