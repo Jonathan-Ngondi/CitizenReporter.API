@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 
-class Responses(models.Model):
+class Response(models.Model):
     '''Creates a model containing information about the story/stories submitted by users.'''
 
     id = models.IntegerField(primary_key=True, blank=True)
@@ -24,7 +24,7 @@ class Responses(models.Model):
 
 class Media(models.Model):
     '''Creates model for media uploads'''
-    response = models.ForeignKey(Responses, related_name='media_uploads')
+    response = models.ForeignKey(Response, related_name='media_uploads')
     media_upload = models.FileField(upload_to='uploads/', null=True, blank=True)
 
 
