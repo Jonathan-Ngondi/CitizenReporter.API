@@ -5,7 +5,7 @@ from django.db import models
 
 def scramble_uploaded_filename(instance, filename):
     extension = filename.split(".")[-1]
-    return "{}.{}".format(uuid.uuid4(), extension)
+    return "uploads/{}.{}".format(uuid.uuid4(), extension)
 
 
 class Assignment(models.Model):
@@ -24,8 +24,8 @@ class Assignment(models.Model):
     description = models.TextField(max_length=500)
     required_media = models.CharField(
         max_length=5, choices=MEDIA_CHOICES, default="Image")
-    media_upload = models.ImageField(
-        upload_to='uploads/' + scramble_uploaded_filename, blank=True)
+    featured_image = models.ImageField(
+        upload_to=scramble_uploaded_filename, blank=True)
     number_of_responses = models.IntegerField(null=True, default=None)
     deadline = models.DateField()
     author = models.CharField(max_length=100, default="Anonymous")
