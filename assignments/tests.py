@@ -19,6 +19,7 @@ def get_temporary_image(temp_file):
 
 class BaseTestCase(TestCase):
     """This test affirms that the Assignment object constructor works as it should."""
+
     def setUp(self):
         self.assignment = Assignment(id=1, title="Tester",
                                      description="A test case for us", required_media="Video",
