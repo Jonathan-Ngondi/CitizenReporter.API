@@ -8,6 +8,6 @@ class AssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Assignment
-        fields = ('id', 'title', 'description', 'required_media', 'media_upload',
+        fields = ('id', 'title', 'description', 'required_media', 'featured_image',
                   'number_of_responses', 'deadline', 'author', 'assignment_location')
         read_only_fields = ('number_of_responses',)
