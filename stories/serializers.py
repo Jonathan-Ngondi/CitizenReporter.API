@@ -4,7 +4,8 @@ from .models import Responses
 class ResponsesSerializer(serializers.ModelSerializer):
     """Serializer to map the Model instance into JSON format."""
 
-    media = serializers.FileField(max_length=None, use_ulr=True)
+    media = serializers.FileField(max_length=None,use_url=True)
+    
     class Meta:
         """Meta class to map serializer's fields with the model fields."""
 
