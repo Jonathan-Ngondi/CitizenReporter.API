@@ -4,7 +4,7 @@ from assignments.models import Assignment
 
 
 class AssignmentSerializer(serializers.ModelSerializer):
-    """This is a serializer for the Assignment model"""
+    """This is a serializer for the Assignment model."""
 
     class Meta:
         model = Assignment
