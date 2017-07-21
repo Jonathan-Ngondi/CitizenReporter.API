@@ -13,6 +13,7 @@ class Responses(models.Model):
     who = models.TextField()
     author = models.CharField(max_length=250, default="Anonymous")
     author_id = models.CharField(max_length=250)
+    media = models.FileField(upload_to='uploads/', null=True, blank=True)
 
     def __str__(self):
         '''Returns all the media uploads.'''
@@ -23,7 +24,7 @@ class Responses(models.Model):
 
 class Media(models.Model):
     '''Creates model for media uploads'''
-    response = models.ForeignKey(Responses, related_name='media')
+    response = models.ForeignKey(Responses, related_name='media_uploads')
     media_upload = models.FileField(upload_to='uploads/', null=True, blank=True)
 
 
