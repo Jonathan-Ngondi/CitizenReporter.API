@@ -5,8 +5,9 @@ from assignments.serializers import AssignmentSerializer
 
 
 class AssignmentList(generics.ListCreateAPIView):
-    """Allows you to view all Assignments, also let's you post one assignment and add it
-       to the database.
+    """
+    Allows you to view all Assignments, also let's you post one
+    assignment and add itto the database.
     """
 
     queryset = Assignment.objects.all()
@@ -14,8 +15,9 @@ class AssignmentList(generics.ListCreateAPIView):
 
 
 class AssignmentDetail(generics.RetrieveUpdateDestroyAPIView):
-    """Allows you to view an individual Assignment, update one as well as delete an
-       an individual assignment.
+    """
+    Allows you to view an individual Assignment, update one as well as delete
+    an individual assignment.
     """
 
     queryset = Assignment.objects.all()

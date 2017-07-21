@@ -11,7 +11,9 @@ def scramble_uploaded_filename(instance, filename):
 
 
 class Assignment(models.Model):
-    """This class creates a model for Citizen Reporter's reporting assignments."""
+    """
+    This class creates a model for Citizen Reporter's reporting assignments.
+    """
     # Create the list of acceptable media types for the required_media variable
     MEDIA_CHOICES = (('Image', 'image'),
                      ('Audio', 'audio'), ('Video', 'video'),
