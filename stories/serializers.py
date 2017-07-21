@@ -8,7 +8,7 @@ class ResponsesSerializer(serializers.ModelSerializer):
         """Meta class to map serializer's fields with the model fields."""
 
         model = Responses
-        fields = ('id', 'created', 'title', 'why', 'when', 'where', 'who', 'author', 'author_id')
+        fields = ('id', 'created', 'title', 'why', 'when', 'where', 'who', 'author', 'author_id', 'media')
         read_only_fields = ('created', 'id',)
 
 class FileListSerializer(serializers.Serializer):
