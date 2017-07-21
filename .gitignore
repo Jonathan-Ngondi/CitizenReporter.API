@@ -82,6 +82,9 @@ celerybeat-schedule
 # db
 *.sqlite3
 
+#DS_Store
+.DS_Store
+
 #Uploads
 *uploads/
 
