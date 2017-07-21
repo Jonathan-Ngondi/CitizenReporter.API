@@ -5,6 +5,9 @@ from assignments.serializers import AssignmentSerializer
 
 
 class AssignmentList(generics.ListCreateAPIView):
+    """Allows you to view all Assignments, also let's you post one assignment and add it
+       to the database.
+    """
 
     queryset = Assignment.objects.all()
     serializer_class = AssignmentSerializer
