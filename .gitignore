@@ -82,6 +82,8 @@ celerybeat-schedule
 # db
 *.sqlite3
 
+#Uploads
+*uploads/
 
 # SageMath parsed files
 *.sage.py
