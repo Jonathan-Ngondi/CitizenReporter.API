@@ -26,3 +26,13 @@ class MediaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Media
         read_only_fields = ("response",)
+
+class UserStoriesSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        """Meta class to map serializer's fields with the model fields."""
+
+        model = Responses
+        fields = ('id', 'created', 'title', 'why', 'when', 'where', 'who', 'author', 'author_id', 'media')
+        read_only_fields = ('created', 'id',)
+    
