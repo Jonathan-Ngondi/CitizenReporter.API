@@ -1,11 +1,22 @@
+import uuid
+
 from django.db import models
+
+
+def scramble_uploaded_filename(instance, filename):
+    extension = filename.split(".")[-1]
+    return "{}.{}".format(uuid.uuid4(), extension)
 
 
 class Assignment(models.Model):
     """This class creates a model for Citizen Reporter's reporting assignments."""
     # Create the list of acceptable media types for the required_media variable
     MEDIA_CHOICES = (('Image', 'image'),
-                     ('Audio', 'audio'), ('Video', 'video'))
+                     ('Audio', 'audio'), ('Video', 'video'),
+                     ('image + video', 'image & video'),
+                     ('image + audio', 'image & audio'),
+                     ('audio + video', 'audio & video'),
+                     ('image + audio + video', 'image & audio & video'),)
 
     # Required Assignment class attributes
     created = models.DateTimeField(auto_now_add=True)
@@ -13,9 +24,9 @@ class Assignment(models.Model):
     description = models.TextField(max_length=500)
     required_media = models.CharField(
         max_length=5, choices=MEDIA_CHOICES, default="Image")
-    media_upload = models.FileField(
-        upload_to='uploads/', blank=True)
-    number_of_responses = models.IntegerField(blank=True)
+    media_upload = models.ImageField(
+        upload_to='uploads/' + scramble_uploaded_filename, blank=True)
+    number_of_responses = models.IntegerField(null=True, default=None)
     deadline = models.DateField()
     author = models.CharField(max_length=100, default="Anonymous")
     assignment_location = models.CharField(max_length=100, blank=True)
