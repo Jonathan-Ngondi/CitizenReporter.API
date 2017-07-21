@@ -15,7 +15,7 @@ class Responses(models.Model):
     author_id = models.CharField(max_length=250)
     media = models.FileField(upload_to='uploads/', null=True, blank=True)
 
-    def __str__(self):
+    def get_media(self):
         '''Returns all the media uploads.'''
         return self.media
 
