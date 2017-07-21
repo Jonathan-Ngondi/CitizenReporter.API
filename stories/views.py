@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from rest_framework import generics
 
-from .serializers import ResponsesSerializer
+from .serializers import ResponsesSerializer, UserStoriesSerializer
 from .models import Responses
 
 class ResponsesList(generics.ListCreateAPIView):
@@ -14,10 +14,11 @@ class ResponsesList(generics.ListCreateAPIView):
     queryset = Responses.objects.all()
     serializer_class = ResponsesSerializer
 
-    def create_story(self, serializer):
-        '''Saves posted stories.'''
-        serializer.save()
-
 class ResponsesDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Responses.objects.all()
     serializer_class = ResponsesSerializer
+
+class UserStoriesView(generics.RetrieveAPIView):
+    serializer_class = UserStoriesSerializer
+    lookup_field = 'fb_id'
+    queryset = Responses.objects.all()
