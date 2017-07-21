@@ -45,9 +45,6 @@ class ModelTestCase(TestCase):
     def test_model_resposes_author_id(self):
         assert "Facebook ID" in self.responses.author_id
 
-    def test_model_resposes_media(self):
-        assert "Image" in self.responses.media
-
 class ViewTestCase(TestCase):
     '''Defines test suite for the api views.'''
 
@@ -57,12 +54,12 @@ class ViewTestCase(TestCase):
         self.story_data = {
             "title": "Story Title",
             "why": "Story Cause",
-            "when": "2017-9-16",
+            "when": "2017-9-16 00:30",
             "where": "23.33",
             "who": "People Involved",
             "author": "Author Name",
             "author_id": "Facebook ID",
-            "media": "Image"
+            "media": None
         }
         self.response = self.client.post(
             reverse('create'),
@@ -73,12 +70,6 @@ class ViewTestCase(TestCase):
         '''Test api can create story'''
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
 
-    def test_get_user_story(self):
-        '''Test api can get story by user.'''
-        new_client = APIClient()
-        response = new_client.get('/stories/user/<fb_id>', format="json")
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
     def test_get_stories(self):
         '''Test if api can get list of stories.'''
         story = Responses.objects.get()
@@ -87,21 +78,21 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertContains(response, story)
 
-    def test_get_story(self):
-        """Test the api can get a given story by id."""
-        story = Responses.objects.get(id=1)
-        response = self.client.get(
-            '/stories/<id>', format="json")
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertContains(response, story)
-
     def test_update_story(self):
         '''Test api can update story.'''
         story = Responses.objects.get()
-        new_story = {"title": "New Title"}
+        new_story = {
+            "title": "New Title",
+            "why": "Story Cause",
+            "when": "2017-9-16 00:30",
+            "where": "23.33",
+            "who": "People Involved",
+            "author": "Author Name",
+            "author_id": "Facebook ID",
+            "media": None
+        }
         response = self.client.put(
-            reverse('details'),
+            reverse('details', args=(1,)),
             new_story, format='json'
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -110,7 +101,7 @@ class ViewTestCase(TestCase):
         '''Test api can delete story.'''
         story = Responses.objects.get()
         response = self.client.delete(
-            reverse('details'),
+            reverse('details', args=(1,)),
             format='json',
             follow=True)
         self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
