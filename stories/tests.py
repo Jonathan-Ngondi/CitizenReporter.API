@@ -3,47 +3,46 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from rest_framework.test import APITestCase
-from rest_framework.test import APIClient
+from rest_framework.test import  APIClient
 from rest_framework import status
 
-from .models import Responses
-from .views import ResponsesList, ResponsesDetail
+from .models import Response
+from .views import ResponsesList, ResponsesDetail, UserStoriesView
 
 class ModelTestCase(TestCase):
     '''Defines the test suit for Responses model'''
 
     def setUp(self):
         '''Defines test client and test variable'''
-        self.responses = Responses(title="Story Title", why="Story Cause", when="2017-9-16", where="23.4",
-                            who="People Involved", author="Author Name", author_id="Facebook ID", media="Image")
+        self.response = Response.objects.create(title="Story Title", why="Story Cause", when="2017-9-16", where="23.4",
+                            who="People Involved", author="Author Name", author_id="fb_id", media="Image")
 
     def test_model_create_stories(self):
-        old_count = Responses.objects.count()
-        self.responses.save()
-        new_count = Responses.objects.count()
+        old_count = Response.objects.count()
+        self.response.save()
+        new_count = Response.objects.count()
         self.assertNotEqual(old_count, new_count)
 
     def test_model_resposes_title(self):
-        assert "Story Title" in self.responses.title
+        assert "Story Title" in self.response.title
 
     def test_model_resposes_why(self):
-        assert "Story Cause" in self.responses.why
+        assert "Story Cause" in self.response.why
 
     def test_model_resposes_when(self):
-        assert "2017-9-16" in self.responses.when
+        assert "2017-9-16" in self.response.when
 
     def test_model_resposes_where(self):
-        assert "23.4" in self.responses.where
+        assert "23.4" in self.response.where
 
     def test_model_resposes_who(self):
-        assert "People Involved" in self.responses.who
+        assert "People Involved" in self.response.who
 
     def test_model_resposes_author(self):
-        assert "Author Name" in self.responses.author
+        assert "Author Name" in self.response.author
 
     def test_model_resposes_author_id(self):
-        assert "Facebook ID" in self.responses.author_id
+        assert "fb_id" in self.response.author_id
 
 class ViewTestCase(TestCase):
     '''Defines test suite for the api views.'''
@@ -72,15 +71,14 @@ class ViewTestCase(TestCase):
 
     def test_get_stories(self):
         '''Test if api can get list of stories.'''
-        story = Responses.objects.get()
-        response = self.client.get(
-            '/stories/', format="json")
+        story = Response.objects.get()
+        response = self.client.get(self.story_data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertContains(response, story)
 
     def test_update_story(self):
         '''Test api can update story.'''
-        story = Responses.objects.get()
+        story = Response.objects.get()
         new_story = {
             "title": "New Title",
             "why": "Story Cause",
@@ -99,7 +97,7 @@ class ViewTestCase(TestCase):
 
     def test_delete_story(self):
         '''Test api can delete story.'''
-        story = Responses.objects.get()
+        story = Response.objects.get()
         response = self.client.delete(
             reverse('details', args=(1,)),
             format='json',
