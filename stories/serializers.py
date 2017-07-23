@@ -5,7 +5,7 @@ from stories.models import Media, Story
 
 class StorySerializer(serializers.ModelSerializer):
     """Serializer to map the Model instance into JSON format."""
-    media = serializers.StringRelatedField(many=True)
+    media = serializers.StringRelatedField(many=True, required=False)
 
     class Meta:
         """Meta class to map serializer's fields with the model fields."""
@@ -18,7 +18,7 @@ class StorySerializer(serializers.ModelSerializer):
 
 
 class UserStoriesSerializer(serializers.ModelSerializer):
-    media = serializers.StringRelatedField(many=True)
+    media = serializers.StringRelatedField(many=True, required=False)
 
     class Meta:
         """Meta class to map serializer's fields with the model fields."""

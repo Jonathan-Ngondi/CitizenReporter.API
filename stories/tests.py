@@ -86,14 +86,15 @@ class StoryTestAPI(APITestCase):
     def test_media_upload(self):
         url = reverse('stories:create')
         response = self.client.post(url, self.story_data)
-        story_id = response.data['id']
-        media_url = reverse('stories:media')
-        media_response = self.client.post(media_url, {
-            "story": story_id,
-            "file": self.generate_photo_file()
-        })
-        self.assertEqual(media_response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Media.objects.count(), 1)
+        if response.status_code == status.HTTP_201_CREATED:
+            story_id = response.data[u'id']
+            media_url = reverse('stories:media')
+            media_response = self.client.post(media_url, {
+                "story": story_id,
+                "file": self.generate_photo_file()
+            })
+            self.assertEqual(media_response.status_code, status.HTTP_201_CREATED)
+            self.assertEqual(Media.objects.count(), 1)
 
     def test_retrieve_stories(self):
         url = reverse('stories:create')
@@ -107,6 +108,6 @@ class StoryTestAPI(APITestCase):
             })
 
         retrieve_url = reverse('stories:create')
-        response = self.client.get(url)
+        response = self.client.get(retrieve_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Media.objects.count(), 3)
