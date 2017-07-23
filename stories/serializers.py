@@ -3,7 +3,9 @@ from .models import Response, Media
 
 class ResponseSerializer(serializers.ModelSerializer):
     """Serializer to map the Model instance into JSON format."""
-    
+
+    media = serializers.StringRelatedField(many=True, required=False)
+
     class Meta:
         """Meta class to map serializer's fields with the model fields."""
 
@@ -20,6 +22,20 @@ class FileListSerializer(serializers.Serializer):
          for file in media:
              media_files = Media.objects.create(media=file,responses=responses,**validate_data)
          return media_files
+
+class UserStoriesSerializer(serializers.ModelSerializer):
+    media = serializers.StringRelatedField(many=True, required=False)
+
+    class Meta:
+        """Meta class to map serializer's fields with the model fields."""
+
+        model = Story
+        fields = (
+            'id', 'created', 'title', 'why', 'when', 'where', 'who', 'author',
+            'author_id', 'media')
+        read_only_fields = ('created', 'id', 'media')
+
+
 
 class MediaSerializer(serializers.ModelSerializer):
     
