@@ -4,6 +4,10 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from rest_framework import generics
 
+from rest_framework.generics import (CreateAPIView, ListCreateAPIView,
+                                     ListAPIView,
+                                     RetrieveUpdateDestroyAPIView)
+
 from .serializers import ResponseSerializer, UserStoriesSerializer
 from .models import Response
 
@@ -18,7 +22,9 @@ class ResponsesDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Response.objects.all()
     serializer_class = ResponseSerializer
 
-class UserStoriesView(generics.RetrieveAPIView):
+
+class UserStoriesView(ListAPIView):
+
     serializer_class = UserStoriesSerializer
     lookup_field = 'fb_id'
     queryset = Response.objects.all()
