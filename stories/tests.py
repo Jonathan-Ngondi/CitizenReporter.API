@@ -18,17 +18,15 @@ from stories.models import Media, Story
 from utils import generate_photo_file
 
 
+
 from .models import Response
 from .views import ResponsesList, ResponsesDetail, UserStoriesView
 
-class ModelTestCase(TestCase):
-    '''Defines the test suit for Responses model'''
+class StoryModelTestCase(TestCase):
+    """Defines the test suit for Responses model"""
 
     def setUp(self):
-        '''Defines test client and test variable'''
-
-        self.response = Response.objects.create(title="Story Title", why="Story Cause", when="2017-9-16", where="23.4",
-                            who="People Involved", author="Author Name", author_id="fb_id", media="Image")
+        """Defines test client and test variable"""
 
         self.item = Story.objects.create(title="Story Title",
                                          why="Story Cause",
@@ -139,7 +137,8 @@ class ViewTestCase(TestCase):
                 "story": story_id,
                 "file": generate_photo_file()
             })
-            self.assertEqual(media_response.status_code, status.HTTP_201_CREATED)
+            self.assertEqual(media_response.status_code,
+                             status.HTTP_201_CREATED)
             self.assertEqual(Media.objects.count(), 1)
 
     def test_retrieve_stories(self):
@@ -174,20 +173,20 @@ class ViewTestCase(TestCase):
 class UserStoriesTest(APITestCase):
     def setUp(self):
         story1 = Story.objects.create(title="Story Title",
-                             why="Story Cause",
-                             when="2017-9-16", where="23.4",
-                             who="People Involved",
-                             author="Author Name",
-                             fb_id="123456789",
-                             local_media_paths="Image")
+                                      why="Story Cause",
+                                      when="2017-9-16", where="23.4",
+                                      who="People Involved",
+                                      author="Author Name",
+                                      fb_id="123456789",
+                                      local_media_paths="Image")
 
         story2 = Story.objects.create(title="Story Title 2",
-                             why="Story Cause 2",
-                             when="2017-9-16", where="23.4",
-                             who="People Involved",
-                             author="Author Name",
-                             fb_id="123456789",
-                             local_media_paths="Image")
+                                      why="Story Cause 2",
+                                      when="2017-9-16", where="23.4",
+                                      who="People Involved",
+                                      author="Author Name",
+                                      fb_id="123456789",
+                                      local_media_paths="Image")
         media_url = reverse('stories:media')
         for i in range(0, 3):
             self.client.post(media_url, {
@@ -203,6 +202,6 @@ class UserStoriesTest(APITestCase):
 
     def test_get_user_stories(self):
         url = reverse('stories:user-stories', kwargs={'fb_id': '123456789'})
-        response =  self.client.get(url)
+        response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
