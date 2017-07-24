@@ -13,7 +13,7 @@ class StorySerializer(serializers.ModelSerializer):
         model = Story
         fields = (
             'id', 'created', 'title', 'why', 'when', 'where', 'who', 'author',
-            'author_id', 'media')
+            'fb_id', 'media')
         read_only_fields = ('created', 'id', 'media')
 
 
@@ -26,7 +26,7 @@ class UserStoriesSerializer(serializers.ModelSerializer):
         model = Story
         fields = (
             'id', 'created', 'title', 'why', 'when', 'where', 'who', 'author',
-            'author_id', 'media')
+            'fb_id', 'media')
         read_only_fields = ('created', 'id', 'media')
 
 

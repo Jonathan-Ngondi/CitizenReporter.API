@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from rest_framework.generics import (CreateAPIView, ListCreateAPIView,
-                                     RetrieveAPIView,
+                                     ListAPIView,
                                      RetrieveUpdateDestroyAPIView)
 
 from stories.models import Media, Story
@@ -10,7 +10,7 @@ from stories.serializers import (MediaSerializer, StorySerializer,
                                  UserStoriesSerializer)
 
 
-class UserStoriesView(RetrieveAPIView):
+class UserStoriesView(ListAPIView):
     serializer_class = UserStoriesSerializer
     lookup_field = 'fb_id'
     queryset = Story.objects.all()

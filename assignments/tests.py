@@ -1,10 +1,11 @@
-from django.test import TestCase, override_settings
-from django.urls import reverse
 from PIL import Image
+from django.test import TestCase
+from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
 from assignments.models import Assignment
+from utils import generate_photo_file
 
 
 def get_temporary_image(temp_file):
@@ -43,8 +44,9 @@ class CRUDTestCase(APITestCase):
                 'description': "Post method works",
                 "required_media": "Image", "deadline": "2017-09-01",
                 "number_of_responses": None,
-                "author": "Tester Mctesty", "location": "Nairobi,Kenya"}
-        response = self.client.post(url, data, format='json')
+                "author": "Tester Mctesty", "location": "Nairobi,Kenya",
+                "featured_image": generate_photo_file()}
+        response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Assignment.objects.count(), 1)
 
