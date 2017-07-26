@@ -1,11 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 
-
-class Response(models.Model):
-    '''Creates a model containing information about the story/stories submitted by users.'''
-
-from CitizenReporter_API.settings import MEDIA_URL
+from api.settings import MEDIA_URL
 from utils import scramble_uploaded_filename
 
 
