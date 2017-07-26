@@ -6,8 +6,8 @@ from rest_framework import status
 from rest_framework.generics import CreateAPIView, UpdateAPIView
 from rest_framework.response import Response
 
-from user_auth.models import ReporterProfile
-from user_auth.serializers import FCMUpdateSerializer, ProfileCreateSerializer
+from authentication.models import ReporterProfile
+from authentication.serializers import FCMUpdateSerializer, ProfileCreateSerializer
 
 # Create your views here.
 

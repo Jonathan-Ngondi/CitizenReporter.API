@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
 
+
     'assignments.apps.AssignmentsConfig',
     'stories.apps.StoriesConfig',
-    'user_auth',
+    'authentication',
+
     'assignments',
     'stories.apps.StoriesConfig',
 
