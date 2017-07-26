@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from user_auth.views import RegisterProfileView, UpdateFCMView
+from authentication.views import RegisterProfileView, UpdateFCMView
 
 urlpatterns = [
     url(r'^register/', RegisterProfileView.as_view(), name="register-profile"),

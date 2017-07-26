@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from user_auth.models import ReporterProfile
+from authentication.models import ReporterProfile
 
 
 class ProfileCreateSerializer(serializers.ModelSerializer):
