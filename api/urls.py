@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-import user_auth.urls as user_urls
+import authentication.urls as user_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
