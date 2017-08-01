@@ -13,7 +13,14 @@ from stories.serializers import (MediaSerializer, StorySerializer,
 class UserStoriesView(ListAPIView):
     serializer_class = UserStoriesSerializer
     lookup_field = 'fb_id'
-    queryset = Story.objects.all()
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the stories for
+        the user as determined by the fb_id portion of the URL.
+        """
+        fb_id = self.kwargs['fb_id']
+        return Story.objects.filter(fb_id=fb_id)
 
 
 class StoryCreateView(ListCreateAPIView):

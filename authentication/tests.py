@@ -52,7 +52,6 @@ class TestRegisterProfile(APITestCase):
         self.assertEqual(profile.name, "Phillip Ahereza")
         self.assertEqual(profile.fb_id, "221DSDSD2343422342")
         self.assertEqual(profile.profile_pic, "https://fsdfs.com/hdjffdfd.jpg")
-        self.assertEqual(profile.fcm_token, '')
 
     def test_register_preexisting_profile(self):
         # register profile

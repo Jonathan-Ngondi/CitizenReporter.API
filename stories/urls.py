@@ -6,13 +6,13 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from stories import views
 
 urlpatterns = [
-    url(r'^stories/$', views.StoryCreateView.as_view(),
+    url(r'^stories$', views.StoryCreateView.as_view(),
         name="create"),
     url(r'^media/$', views.MediaUploadView.as_view(),
         name="media"),
-    url(r'^stories/user/(?P<fb_id>[0-9]+)/$',
+    url(r'^user/(?P<fb_id>[0-9]+)/$',
         views.UserStoriesView.as_view(), name="user-stories"),
-    url(r'^stories/(?P<pk>[0-9]+)/$',
+    url(r'^(?P<pk>[0-9]+)/$',
         views.StoriesDetailView.as_view(), name="details"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
