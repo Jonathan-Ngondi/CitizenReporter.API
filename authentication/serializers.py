@@ -8,9 +8,6 @@ class ProfileCreateSerializer(serializers.ModelSerializer):
     fb_id = serializers.CharField(required=True)
     profile_pic = serializers.CharField(required=True)
 
-    # make the default blank incase phone hasn't registerd fcm after login
-    fcm_token = serializers.CharField(default='')
-
     class Meta:
         model = ReporterProfile
         fields = ('name', 'profile_pic', 'fb_id', 'fcm_token')
