@@ -8,8 +8,11 @@ from rest_framework.generics import (CreateAPIView, ListCreateAPIView,
                                      ListAPIView,
                                      RetrieveUpdateDestroyAPIView)
 
-from .serializers import ResponseSerializer, UserStoriesSerializer
-from .models import Response
+from stories.models import Media, Story
+from stories.serializers import (MediaSerializer, StorySerializer,
+                                 UserStoriesSerializer)
+
+
 
 class ResponsesList(generics.ListCreateAPIView):
     '''

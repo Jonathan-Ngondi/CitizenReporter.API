@@ -42,6 +42,8 @@ class UserStoriesSerializer(serializers.ModelSerializer):
             'id', 'created', 'title', 'why', 'when', 'where', 'who', 'author',
             'fb_id', 'media')
         read_only_fields = ('created', 'id', 'media')
+        lookup_field = 'fb_id'
+
 
 
 

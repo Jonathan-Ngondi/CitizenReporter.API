@@ -205,3 +205,11 @@ class UserStoriesTest(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
+
+    def test_get_user_no_stories(self):
+        url = reverse('stories:user-stories', kwargs={'fb_id': '12567890'})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 0)
+
+
