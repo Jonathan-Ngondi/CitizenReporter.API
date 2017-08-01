@@ -33,3 +33,10 @@ class FCMUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReporterProfile
         fields = ('fcm_token',)
+
+
+class ProfileListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ReporterProfile
+        fields = ('name', 'profile_pic', 'fb_id', 'fcm_token')

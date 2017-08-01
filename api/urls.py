@@ -21,8 +21,10 @@ import authentication.urls as user_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('stories.urls')),
-    url(r'api/users', include(user_urls, namespace="user")),
-    url(r'^api', include('assignments.urls', namespace='assignments')),
+    url(r'api/users/', include(user_urls, namespace="user")),
+    url(r'^api/assignments/',
+        include('assignments.urls', namespace='assignments')),
+    url(r'^api/stories/', include('stories.urls', namespace='stories')),
+
 
 ]
