@@ -11,4 +11,4 @@ class ReporterProfile(models.Model):
     profile_pic = models.CharField(max_length=200, blank=False, null=False)
     fb_id = models.CharField(max_length=100,
                              unique=True, blank=False, null=False)
-    fcm_token = models.CharField(max_length=100, blank=True, unique=True)
+    fcm_token = models.CharField(max_length=100, blank=True)
