@@ -56,15 +56,19 @@ class TestRegisterProfile(APITestCase):
 
     def test_register_preexisting_profile(self):
         # register profile
-        ReporterProfile.objects.create(
-            name="Phillip Ahereza",
-            fb_id="221DSDSD2343422342",
-            fcm_token="23e24332sdksjdnfjafewrwrerwr22",
-            profile_pic="https://fsdfs.com/hdjffdfd.jpg"
-        )
-
+        self.client.post(self.url, self.data)
         response = self.client.post(self.url, self.data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
+
+    def test_add_another_user(self):
+        self.client.post(self.url, {
+            "name": "Phillip Ahereza",
+            "fb_id": "221DSDSD234",
+            "profile_pic": "https://fsdfs.com/hdjffdfd.jpg",
+        })
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(ReporterProfile.objects.count(), 2)
 
 
 class TestUpdateFCM(APITestCase):
