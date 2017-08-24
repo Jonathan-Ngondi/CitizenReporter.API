@@ -76,8 +76,6 @@ target/
 # celery beat schedule file
 celerybeat-schedule
 
-# Migration files
-*migrations/
 
 # db
 *.sqlite3
