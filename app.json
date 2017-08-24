@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dokku": {
+      "predeploy": "python manage.py collectstatic",
+      "predeploy": "python manage.py makemigrations",
+      "predeploy": "python manage.py migrate"
+    }
+  }
+}
