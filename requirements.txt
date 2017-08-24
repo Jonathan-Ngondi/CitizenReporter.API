@@ -4,6 +4,7 @@ configparser==3.5.0
 Django==1.11.3
 django-extra-fields==0.9
 djangorestframework==3.6.3
+drfdocs==0.0.11
 enum34==1.1.6
 flake8==3.3.0
 gunicorn==19.7.1
