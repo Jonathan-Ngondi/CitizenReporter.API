@@ -20,6 +20,7 @@ from django.contrib import admin
 import authentication.urls as user_urls
 
 urlpatterns = [
+    url(r'^$', include('rest_framework_docs.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'api/users/', include(user_urls, namespace="user")),
     url(r'^api/assignments/',
