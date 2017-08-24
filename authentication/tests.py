@@ -81,7 +81,7 @@ class TestUpdateFCM(APITestCase):
 
     def test_update_fcm_id(self):
         profile = ReporterProfile.objects.latest('id')
-        url = reverse('user:update-fcm', kwargs={'fb_id': profile.fb_id})
+        url = reverse('user:update', kwargs={'fb_id': profile.fb_id})
         data = {
             'fcm_token': '1234567890'
         }
@@ -93,3 +93,30 @@ class TestUpdateFCM(APITestCase):
         self.assertEqual(updated_profile.profile_pic,
                          "https://fsdfs.com/hdjffdfd.jpg")
         self.assertEqual(updated_profile.fcm_token, '1234567890')
+
+
+class TestUpdateLocation(APITestCase):
+    def setUp(self):
+        self.profile = ReporterProfile.objects.create(
+            name="Phillip Ahereza",
+            fb_id="221DSDSD2343422342",
+            fcm_token="23e24332sdksjdnfjafewrwrerwr22",
+            profile_pic="https://fsdfs.com/hdjffdfd.jpg",
+            location=""
+        )
+
+    def test_update_location(self):
+        profile = ReporterProfile.objects.latest('id')
+        url = reverse('user:update', kwargs={'fb_id': profile.fb_id})
+        print url
+        data = {
+            'location': '32, 23'
+        }
+        response = self.client.patch(url, data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        updated_profile = ReporterProfile.objects.latest('id')
+        self.assertEqual(updated_profile.name, "Phillip Ahereza")
+        self.assertEqual(updated_profile.fb_id, "221DSDSD2343422342")
+        self.assertEqual(updated_profile.profile_pic,
+                         "https://fsdfs.com/hdjffdfd.jpg")
+        self.assertEqual(updated_profile.location, '32, 23')

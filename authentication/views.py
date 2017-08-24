@@ -9,7 +9,7 @@ from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView, \
 from rest_framework.response import Response
 
 from authentication.models import ReporterProfile
-from authentication.serializers import FCMUpdateSerializer, \
+from authentication.serializers import UpdateSerializer, \
     ProfileCreateSerializer, ProfileListSerializer
 
 
@@ -40,7 +40,7 @@ class RegisterProfileView(CreateAPIView):
 
 
 class UpdateFCMView(RetrieveUpdateAPIView):
-    serializer_class = FCMUpdateSerializer
+    serializer_class = UpdateSerializer
     lookup_field = 'fb_id'
     queryset = ReporterProfile.objects.all()
 

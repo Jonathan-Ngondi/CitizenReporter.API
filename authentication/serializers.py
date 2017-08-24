@@ -10,7 +10,7 @@ class ProfileCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ReporterProfile
-        fields = ('name', 'profile_pic', 'fb_id', 'fcm_token')
+        fields = ('name', 'profile_pic', 'fb_id', 'fcm_token', 'location')
 
     def create(self, validated_data):
         name = validated_data.get('name')
@@ -26,14 +26,17 @@ class ProfileCreateSerializer(serializers.ModelSerializer):
         )
 
 
-class FCMUpdateSerializer(serializers.ModelSerializer):
+class UpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReporterProfile
-        fields = ('fcm_token',)
+        fields = ('name', 'profile_pic', 'fb_id', 'fcm_token', 'location')
+
+    def create(self, validated_data):
+        print validated_data
 
 
 class ProfileListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ReporterProfile
-        fields = ('name', 'profile_pic', 'fb_id', 'fcm_token')
+        fields = ('name', 'profile_pic', 'fb_id', 'fcm_token', 'location')

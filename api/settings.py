@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication',
     'assignments',
+    'rest_framework_docs',
     'stories.apps.StoriesConfig',
 ]
 

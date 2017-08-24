@@ -40,6 +40,7 @@ class CRUDTestCase(APITestCase):
 
     def test_post_method_for_assignments(self):
         url = reverse('assignments:list')
+        print url
         data = {'title': 'Test Works!',
                 'description': "Post method works",
                 "required_media": "Image", "deadline": "2017-09-01",

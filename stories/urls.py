@@ -6,7 +6,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from stories import views
 
 urlpatterns = [
-    url(r'^stories$', views.StoryCreateView.as_view(),
+    url(r'^$', views.StoryCreateView.as_view(),
         name="create"),
     url(r'^media/$', views.MediaUploadView.as_view(),
         name="media"),
