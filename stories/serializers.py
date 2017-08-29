@@ -12,8 +12,9 @@ class StorySerializer(serializers.ModelSerializer):
 
         model = Story
         fields = (
-            'id', 'created', 'title', 'why', 'when', 'where', 'who', 'author',
-            'fb_id', 'media')
+            'id', 'created', 'local_id', 'title', 'summary', 'when', 'where',
+            'who', 'author', 'fb_id', 'media', 'uploaded', 'updated',
+            "local_media_paths")
         read_only_fields = ('created', 'id', 'media')
 
 
@@ -25,11 +26,11 @@ class UserStoriesSerializer(serializers.ModelSerializer):
 
         model = Story
         fields = (
-            'id', 'created', 'title', 'why', 'when', 'where', 'who', 'author',
-            'fb_id', 'media')
+            'id', 'created', 'local_id', 'title', 'summary', 'when', 'where',
+            'who', 'author', 'fb_id', 'media', 'uploaded',
+            "local_media_paths", 'updated')
         read_only_fields = ('created', 'id', 'media')
         lookup_field = 'fb_id'
-
 
 
 class MediaSerializer(serializers.ModelSerializer):

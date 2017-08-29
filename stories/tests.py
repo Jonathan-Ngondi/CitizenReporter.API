@@ -18,12 +18,14 @@ class StoryModelTestCase(TestCase):
     def setUp(self):
         """Defines test client and test variable"""
         self.item = Story.objects.create(title="Story Title",
-                                         why="Story Cause",
-                                         when="2017-9-16", where="23.4",
+                                         summary="Story Cause",
+                                         when="2017-9-16",
+                                         where="23.4",
                                          who="People Involved",
                                          author="Author Name",
                                          fb_id="fb_id",
-                                         local_media_paths="Image")
+                                         local_media_paths="Image"
+                                         )
 
     def test_model_create_stories(self):
         self.assertEqual(1, Story.objects.count())
@@ -32,7 +34,7 @@ class StoryModelTestCase(TestCase):
         assert "Story Title" in self.item.title
 
     def test_model_responses_why(self):
-        assert "Story Cause" in self.item.why
+        assert "Story Cause" in self.item.summary
 
     def test_model_responses_when(self):
         assert "2017-9-16" in self.item.when
@@ -54,13 +56,14 @@ class StoryTestAPI(APITestCase):
     def setUp(self):
         self.story_data = {
             "title": "Story Title",
-            "why": "Story Cause",
+            "summary": "Story Cause",
             "when": "2017-9-16 00:30",
             "where": "23.33",
             "who": "People Involved",
             "author": "Author Name",
             "fb_id": "123456789",
-            "local_media_paths": ""
+            "updated": "12 August 2017",
+            "local_media_paths": "Image"
         }
 
     def tearDown(self):
@@ -71,6 +74,7 @@ class StoryTestAPI(APITestCase):
 
     def test_create_story(self):
         url = reverse('stories:create')
+        print url
         response = self.client.post(url, self.story_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -108,19 +112,27 @@ class StoryTestAPI(APITestCase):
 class UserStoriesTest(APITestCase):
     def setUp(self):
         story1 = Story.objects.create(title="Story Title",
-                                      why="Story Cause",
-                                      when="2017-9-16", where="23.4",
+                                      summary="Story Cause",
+                                      when="2017-9-16",
+                                      where="23.4",
                                       who="People Involved",
+                                      local_media_paths="Image",
                                       author="Author Name",
+                                      local_id="23",
                                       fb_id="123456789",
-                                      local_media_paths="Image")
+                                      uploaded=True,
+                                      updated="12 August 2017"
+                                      )
 
         story2 = Story.objects.create(title="Story Title 2",
-                                      why="Story Cause 2",
+                                      summary="Story Cause 2",
                                       when="2017-9-16", where="23.4",
                                       who="People Involved",
                                       author="Author Name",
+                                      local_id="23",
                                       fb_id="123456789",
+                                      uploaded=True,
+                                      updated="12 August 2017",
                                       local_media_paths="Image")
         media_url = reverse('stories:media')
         for i in range(0, 3):
