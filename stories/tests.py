@@ -29,12 +29,14 @@ class StoryModelTestCase(TestCase):
         """Defines test client and test variable"""
 
         self.item = Story.objects.create(title="Story Title",
-                                         why="Story Cause",
-                                         when="2017-9-16", where="23.4",
+                                         summary="Story Cause",
+                                         when="2017-9-16",
+                                         where="23.4",
                                          who="People Involved",
                                          author="Author Name",
                                          fb_id="fb_id",
-                                         local_media_paths="Image")
+                                         local_media_paths="Image"
+                                         )
 
 
     def test_model_create_stories(self):
@@ -46,8 +48,13 @@ class StoryModelTestCase(TestCase):
     def test_model_resposes_title(self):
         assert "Story Title" in self.response.title
 
+<<<<<<< HEAD
     def test_model_resposes_why(self):
         assert "Story Cause" in self.response.why
+=======
+    def test_model_responses_why(self):
+        assert "Story Cause" in self.item.summary
+>>>>>>> refactor of stories model
 
     def test_model_resposes_when(self):
         assert "2017-9-16" in self.response.when
@@ -73,7 +80,7 @@ class ViewTestCase(TestCase):
         self.client = APIClient()
         self.story_data = {
             "title": "Story Title",
-            "why": "Story Cause",
+            "summary": "Story Cause",
             "when": "2017-9-16 00:30",
             "where": "23.33",
             "who": "People Involved",
@@ -82,6 +89,7 @@ class ViewTestCase(TestCase):
             "media": None,
 
             "fb_id": "123456789",
+<<<<<<< HEAD
             "local_media_paths": ""
 
         }
@@ -115,6 +123,10 @@ class ViewTestCase(TestCase):
             "author": "Author Name",
             "author_id": "Facebook ID",
             "media": None
+=======
+            "updated": "12 August 2017",
+            "local_media_paths": "Image"
+>>>>>>> refactor of stories model
         }
         response = self.client.put(
             reverse('details', args=(1,)),
@@ -124,6 +136,7 @@ class ViewTestCase(TestCase):
 
     def test_create_story(self):
         url = reverse('stories:create')
+        print url
         response = self.client.post(url, self.story_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -173,19 +186,27 @@ class ViewTestCase(TestCase):
 class UserStoriesTest(APITestCase):
     def setUp(self):
         story1 = Story.objects.create(title="Story Title",
-                                      why="Story Cause",
-                                      when="2017-9-16", where="23.4",
+                                      summary="Story Cause",
+                                      when="2017-9-16",
+                                      where="23.4",
                                       who="People Involved",
+                                      local_media_paths="Image",
                                       author="Author Name",
+                                      local_id="23",
                                       fb_id="123456789",
-                                      local_media_paths="Image")
+                                      uploaded=True,
+                                      updated="12 August 2017"
+                                      )
 
         story2 = Story.objects.create(title="Story Title 2",
-                                      why="Story Cause 2",
+                                      summary="Story Cause 2",
                                       when="2017-9-16", where="23.4",
                                       who="People Involved",
                                       author="Author Name",
+                                      local_id="23",
                                       fb_id="123456789",
+                                      uploaded=True,
+                                      updated="12 August 2017",
                                       local_media_paths="Image")
         media_url = reverse('stories:media')
         for i in range(0, 3):

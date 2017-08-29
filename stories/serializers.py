@@ -8,20 +8,12 @@ class ResponseSerializer(serializers.ModelSerializer):
 
     class Meta:
         """Meta class to map serializer's fields with the model fields."""
-
-        model = Response
-        fields = ('id', 'created', 'title', 'why', 'when', 'where', 'who', 'author', 'author_id', 'media')
-        read_only_fields = ('created', 'id',)
-
-class FileListSerializer(serializers.Serializer):
-    
-    media = serializers.ListField(child=serializers.FileField(max_length=None,use_url=True))
-
-    model = Story
-    fields = (
-        'id', 'created', 'title', 'why', 'when', 'where', 'who', 'author',
-        'fb_id', 'media')
-    read_only_fields = ('created', 'id', 'media')
+        model = Story
+        fields = (
+            'id', 'created', 'local_id', 'title', 'summary', 'when', 'where',
+            'who', 'author', 'fb_id', 'media', 'uploaded', 'updated',
+            "local_media_paths")
+        read_only_fields = ('created', 'id', 'media')
 
 
     def create(self, validate_data):
@@ -39,14 +31,18 @@ class UserStoriesSerializer(serializers.ModelSerializer):
 
         model = Story
         fields = (
-            'id', 'created', 'title', 'why', 'when', 'where', 'who', 'author',
-            'fb_id', 'media')
+            'id', 'created', 'local_id', 'title', 'summary', 'when', 'where',
+            'who', 'author', 'fb_id', 'media', 'uploaded',
+            "local_media_paths", 'updated')
         read_only_fields = ('created', 'id', 'media')
         lookup_field = 'fb_id'
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> refactor of stories model
 class MediaSerializer(serializers.ModelSerializer):
     
     class Meta:

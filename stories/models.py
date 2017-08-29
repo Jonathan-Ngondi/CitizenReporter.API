@@ -13,21 +13,19 @@ class Story(models.Model):
 
     id = models.IntegerField(primary_key=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
+    local_id = models.IntegerField(default=0)
+    assignmentId = models.IntegerField(default=0)
     title = models.CharField(null=False, max_length=250)
-    why = models.TextField()
-    when = models.DateTimeField(auto_now_add=False)
-    where = models.DecimalField(max_digits=9, decimal_places=6)
+    summary = models.TextField()
+    when = models.CharField(max_length=20, default="")
+    where = models.CharField(max_length=200, default='Unkown')
     who = models.TextField()
     author = models.CharField(max_length=250, default="Anonymous")
-    author_id = models.CharField(max_length=250)
-    media = models.FileField(upload_to='uploads/', null=True, blank=True)
+    fb_id = models.CharField(max_length=250, default="unknown")
+    uploaded = models.BooleanField(default=True)
+    updated = models.CharField(max_length=30, default="unknown")
+    local_media_paths = models.TextField(max_length=5000, default="")
 
-    def get_media(self):
-        '''Returns all the media uploads.'''
-        return self.media
-
-    fb_id = models.CharField(max_length=250)
-    local_media_paths = models.CharField(max_length=5000, default="")
 
 
     class Meta:
@@ -40,4 +38,9 @@ class Media(models.Model):
     media_upload = models.FileField(upload_to='uploads/', null=True, blank=True)
 
     story = models.ForeignKey(Story, related_name='media')
-    file = models.FileField(upload_to=scramble_uploaded_filename, null=True, blank=True)
+    file = models.FileField(upload_to=scramble_uploaded_filename, null=True,
+                            blank=True)
+
+    def __unicode__(self):
+        return "{0}{1}".format(MEDIA_URL, self.file.url)
+
