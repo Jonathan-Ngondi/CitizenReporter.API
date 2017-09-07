@@ -21,7 +21,7 @@ class Story(models.Model):
     where = models.CharField(max_length=200, default='Unkown')
     who = models.TextField()
     author = models.CharField(max_length=250, default="Anonymous")
-    fb_id = models.CharField(max_length=250, default="unknown")
+    uid = models.CharField(max_length=250, default="unknown")
     uploaded = models.BooleanField(default=True)
     updated = models.CharField(max_length=30, default="unknown")
     local_media_paths = models.TextField(max_length=5000, default="")

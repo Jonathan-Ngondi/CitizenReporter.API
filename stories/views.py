@@ -13,6 +13,17 @@ from stories.serializers import (MediaSerializer, StorySerializer,
                                  UserStoriesSerializer)
 
 
+class UserStoriesView(ListAPIView):
+    serializer_class = UserStoriesSerializer
+    lookup_field = 'uid'
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the stories for
+        the user as determined by the uid portion of the URL.
+        """
+        uid = self.kwargs['uid']
+        return Story.objects.filter(uid=uid)
 
 class ResponsesList(generics.ListCreateAPIView):
     '''

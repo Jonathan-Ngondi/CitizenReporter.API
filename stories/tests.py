@@ -34,7 +34,7 @@ class StoryModelTestCase(TestCase):
                                          where="23.4",
                                          who="People Involved",
                                          author="Author Name",
-                                         fb_id="fb_id",
+                                         uid="uid",
                                          local_media_paths="Image"
                                          )
 
@@ -68,8 +68,8 @@ class StoryModelTestCase(TestCase):
     def test_model_resposes_author(self):
         assert "Author Name" in self.response.author
 
-    def test_model_responses_fb_id(self):
-        assert "fb_id" in self.item.fb_id
+    def test_model_responses_uid(self):
+        assert "uid" in self.item.uid
 
 
 class ViewTestCase(TestCase):
@@ -89,7 +89,6 @@ class ViewTestCase(TestCase):
             "media": None,
 
             "fb_id": "123456789",
-<<<<<<< HEAD
             "local_media_paths": ""
 
         }
@@ -122,11 +121,11 @@ class ViewTestCase(TestCase):
             "who": "People Involved",
             "author": "Author Name",
             "author_id": "Facebook ID",
-            "media": None
-=======
+            "media": None,
+            "uid": "123456789",
             "updated": "12 August 2017",
             "local_media_paths": "Image"
->>>>>>> refactor of stories model
+
         }
         response = self.client.put(
             reverse('details', args=(1,)),
@@ -193,7 +192,7 @@ class UserStoriesTest(APITestCase):
                                       local_media_paths="Image",
                                       author="Author Name",
                                       local_id="23",
-                                      fb_id="123456789",
+                                      uid="123456789",
                                       uploaded=True,
                                       updated="12 August 2017"
                                       )
@@ -204,7 +203,7 @@ class UserStoriesTest(APITestCase):
                                       who="People Involved",
                                       author="Author Name",
                                       local_id="23",
-                                      fb_id="123456789",
+                                      uid="123456789",
                                       uploaded=True,
                                       updated="12 August 2017",
                                       local_media_paths="Image")
@@ -222,13 +221,13 @@ class UserStoriesTest(APITestCase):
             })
 
     def test_get_user_stories(self):
-        url = reverse('stories:user-stories', kwargs={'fb_id': '123456789'})
+        url = reverse('stories:user-stories', kwargs={'uid': '123456789'})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
 
     def test_get_user_no_stories(self):
-        url = reverse('stories:user-stories', kwargs={'fb_id': '12567890'})
+        url = reverse('stories:user-stories', kwargs={'uid': '12567890'})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 0)

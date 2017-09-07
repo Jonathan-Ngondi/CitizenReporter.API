@@ -10,7 +10,7 @@ urlpatterns = [
         name="create"),
     url(r'^media/$', views.MediaUploadView.as_view(),
         name="media"),
-    url(r'^user/(?P<fb_id>[0-9]+)/$',
+    url(r'^user/(?P<uid>[0-9]+)/$',
         views.UserStoriesView.as_view(), name="user-stories"),
     url(r'^(?P<pk>[0-9]+)/$',
         views.StoriesDetailView.as_view(), name="details"),

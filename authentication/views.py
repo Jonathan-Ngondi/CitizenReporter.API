@@ -21,11 +21,11 @@ class RegisterProfileView(CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         """
-        save the profile only and only if the fb_id is unique
+        save the profile only and only if the uid is unique
         """
-        fb_id = request.data['fb_id']
+        uid = request.data['uid']
         num_results = ReporterProfile.objects.filter(
-            fb_id=fb_id).count()
+            uid=uid).count()
 
         if num_results == 0:
             serializer = self.get_serializer(data=request.data)
@@ -41,7 +41,7 @@ class RegisterProfileView(CreateAPIView):
 
 class UpdateFCMView(RetrieveUpdateAPIView):
     serializer_class = UpdateSerializer
-    lookup_field = 'fb_id'
+    lookup_field = 'uid'
     queryset = ReporterProfile.objects.all()
 
 
