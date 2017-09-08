@@ -1,5 +1,6 @@
 from django.conf.urls import url, include
 from rest_framework.urlpatterns import format_suffix_patterns
+from feeds import LatestEntryFeed
 from stories import views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -14,6 +15,7 @@ urlpatterns = [
         views.UserStoriesView.as_view(), name="user-stories"),
     url(r'^(?P<pk>[0-9]+)/$',
         views.StoriesDetailView.as_view(), name="details"),
+    url(r'^feeds/', LatestEntryFeed()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

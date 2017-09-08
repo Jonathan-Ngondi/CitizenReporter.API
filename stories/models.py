@@ -15,7 +15,7 @@ class Story(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     local_id = models.IntegerField(default=0)
     assignmentId = models.IntegerField(default=0)
-    title = models.CharField(null=False, max_length=250)
+    title = models.CharField(null=False, max_length=250, default="")
     summary = models.TextField()
     when = models.CharField(max_length=20, default="")
     where = models.CharField(max_length=200, default='Unkown')
@@ -26,10 +26,12 @@ class Story(models.Model):
     updated = models.CharField(max_length=30, default="unknown")
     local_media_paths = models.TextField(max_length=5000, default="")
 
-
+    def get_absolute_url(self):
+        return "/stories/{}".format(self.local_id)
 
     class Meta:
         ordering = ('created',)
+    
 
 class Media(models.Model):
     '''Creates model for media uploads'''
