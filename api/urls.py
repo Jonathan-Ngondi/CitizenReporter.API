@@ -25,5 +25,4 @@ urlpatterns = [
     url(r'^api/assignments/',
         include('assignments.urls', namespace='assignments')),
     url(r'^api/stories/', include('stories.urls', namespace='stories')),
-
 ]
