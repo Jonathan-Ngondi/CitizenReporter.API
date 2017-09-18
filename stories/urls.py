@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
-from rest_framework.urlpatterns import format_suffix_patterns
-from feeds import LatestEntryFeed
 
+from feeds import LatestEntryFeed
+from rest_framework.urlpatterns import format_suffix_patterns
 from stories import views
 
 urlpatterns = [
