@@ -31,7 +31,6 @@ class Story(models.Model):
 
     class Meta:
         ordering = ('created',)
-    
 
 class Media(models.Model):
     '''Creates model for media uploads'''
@@ -45,4 +44,5 @@ class Media(models.Model):
 
     def __unicode__(self):
         return "{0}{1}".format(MEDIA_URL, self.file.url)
+
 
