@@ -26,15 +26,20 @@ class Story(models.Model):
     updated = models.CharField(max_length=30, default="unknown")
     local_media_paths = models.TextField(max_length=5000, default="")
 
+    def get_absolute_url(self):
+        """This method allows for rss feed to be populated easily."""
+        return "/stories/{}".format(self.local_id)
+
     class Meta:
         ordering = ('created',)
 
 
 class Media(models.Model):
-    '''Creates model for media uploads'''
+    """Creates model for media uploads"""
     story = models.ForeignKey(Story, related_name='media')
     file = models.FileField(upload_to=scramble_uploaded_filename, null=True,
                             blank=True)
 
     def __unicode__(self):
+        """Unicode representation of the uploaded media file"""
         return "{0}{1}".format(MEDIA_URL, self.file.url)

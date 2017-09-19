@@ -4,19 +4,22 @@ from __future__ import unicode_literals
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView, \
-    ListAPIView
+from rest_framework.generics import (CreateAPIView, ListAPIView,
+                                     RetrieveUpdateAPIView)
 from rest_framework.response import Response
 
 from authentication.models import ReporterProfile
-from authentication.serializers import UpdateSerializer, \
-    ProfileCreateSerializer, ProfileListSerializer
-
+from authentication.serializers import (ProfileCreateSerializer,
+                                        ProfileListSerializer,
+                                        UpdateSerializer)
 
 # Create your views here.
 
 
 class RegisterProfileView(CreateAPIView):
+    """
+    This class allows the user to save their profile to the database.
+    """
     serializer_class = ProfileCreateSerializer
 
     def post(self, request, *args, **kwargs):
@@ -40,11 +43,17 @@ class RegisterProfileView(CreateAPIView):
 
 
 class UpdateFCMView(RetrieveUpdateAPIView):
+    """
+    This view allows the user to retrieve a single profile and update it.
+    """
     serializer_class = UpdateSerializer
     lookup_field = 'fb_id'
     queryset = ReporterProfile.objects.all()
 
 
 class ListUsers(ListAPIView):
+    """
+    This view allows the user to list all the users in the database.
+    """
     serializer_class = ProfileListSerializer
     queryset = ReporterProfile.objects.all()

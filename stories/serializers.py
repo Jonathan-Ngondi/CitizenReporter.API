@@ -19,6 +19,7 @@ class StorySerializer(serializers.ModelSerializer):
 
 
 class UserStoriesSerializer(serializers.ModelSerializer):
+    """"""
     media = serializers.StringRelatedField(many=True, required=False)
 
     class Meta:
@@ -34,6 +35,7 @@ class UserStoriesSerializer(serializers.ModelSerializer):
 
 
 class MediaSerializer(serializers.ModelSerializer):
+    """This serializer adds """
     class Meta:
         model = Media
         fields = ('story', 'file')

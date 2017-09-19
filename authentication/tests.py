@@ -45,6 +45,7 @@ class TestRegisterProfile(APITestCase):
             "profile_pic": "https://fsdfs.com/hdjffdfd.jpg",
         }
 
+    #The following tests for base cases for the registration functionality.
     def test_register_profile(self):
         response = self.client.post(self.url, self.data)
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
@@ -71,6 +72,9 @@ class TestRegisterProfile(APITestCase):
 
 
 class TestUpdateFCM(APITestCase):
+    """
+    This test confirms that the fcm_token can be updated.
+    """
     def setUp(self):
         self.profile = ReporterProfile.objects.create(
             name="Phillip Ahereza",
@@ -96,6 +100,10 @@ class TestUpdateFCM(APITestCase):
 
 
 class TestUpdateLocation(APITestCase):
+    """
+    This test tests whether the ReporterProfile object is able to consume location data 
+    from the Facebook API and update it.
+    """
     def setUp(self):
         self.profile = ReporterProfile.objects.create(
             name="Phillip Ahereza",

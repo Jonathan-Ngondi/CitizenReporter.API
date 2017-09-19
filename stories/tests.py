@@ -26,7 +26,7 @@ class StoryModelTestCase(TestCase):
                                          fb_id="fb_id",
                                          local_media_paths="Image"
                                          )
-
+    #These series of tests test each field of the Story model.
     def test_model_create_stories(self):
         self.assertEqual(1, Story.objects.count())
 
@@ -53,6 +53,7 @@ class StoryModelTestCase(TestCase):
 
 
 class StoryTestAPI(APITestCase):
+    """These tests that the API Story endpoints return the expected data and response codes."""
     def setUp(self):
         self.story_data = {
             "title": "Story Title",
@@ -110,6 +111,8 @@ class StoryTestAPI(APITestCase):
 
 
 class UserStoriesTest(APITestCase):
+    """These tests that the API User endpoints return the expected data and response codes."""
+    
     def setUp(self):
         story1 = Story.objects.create(title="Story Title",
                                       summary="Story Cause",
@@ -158,5 +161,3 @@ class UserStoriesTest(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 0)
-
-

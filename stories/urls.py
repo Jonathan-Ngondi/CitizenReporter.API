@@ -3,8 +3,10 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from rest_framework.urlpatterns import format_suffix_patterns
 
+from feeds import LatestEntryFeed
 from stories import views
 
+# Url endpoints for all the stories views
 urlpatterns = [
     url(r'^$', views.StoryCreateView.as_view(),
         name="create"),

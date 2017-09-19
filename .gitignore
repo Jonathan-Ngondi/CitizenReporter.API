@@ -111,3 +111,6 @@ ENV/
 .mypy_cache/
 .idea/
 staticfiles/
+
+#migrations
+migrations/
