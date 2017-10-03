@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import json
+
 import shutil
 
 from django.test import TestCase
@@ -165,10 +167,78 @@ class ParseStoryTest(APITestCase):
     the API after saving the Story in Parse.
     """
 
-    def setup(self):
-        self.parse_story = {}
+    def setUp(self):
+        self.parse_story = {
+    "triggerName": "afterSave",
+    "object": {
+        "when": {
+            "__type": "Date",
+            "iso": "2017-10-03T12:14:52.593Z"
+        },
+        "title": "Baga",
+        "who": "Me",
+        "location": "Andela Kenya",
+        "assignment": "5dOOMjWo2u",
+        "uploaded": "true",
+        "localID": "d31e17fd-a70b-4083-b04d-4c05cab266fa",
+        "summary": "Yup",
+        "media": [],
+        "author": "QiR90vrhcR",
+        "createdAt": "2017-10-03T12:14:57.511Z",
+        "updatedAt": "2017-10-03T12:14:57.511Z",
+        "objectId": "EDiV5IwzMc",
+        "className": "Story"
+    },
+    "master": "false",
+    "log": {
+        "appId": "11235813"
+    },
+    "headers": {
+        "host": "creporter-server.herokuapp.com",
+        "connection": "close",
+        "x-parse-session-token": "r:bc62398c1da0ad288f55b025c51e5aeb",
+        "x-parse-application-id": "11235813",
+        "x-parse-client-version": "a1.15.7",
+        "x-parse-app-build-version": "1",
+        "x-parse-app-display-version": "1.3-beta",
+        "x-parse-os-version": "6.0",
+        "user-agent": "Parse Android SDK 1.15.7 (org.codeforafrica.citizenreporterandroid/1) API Level 23",
+        "x-parse-installation-id": "7b96b0e1-fa59-4899-a942-825a69fbea28",
+        "content-type": "application/json",
+        "accept-encoding": "gzip",
+        "x-request-id": "0ed31771-b0d2-4f56-b2cf-f692b105474a",
+        "x-forwarded-for": "154.123.178.211",
+        "x-forwarded-proto": "http",
+        "x-forwarded-port": "80",
+        "via": "1.1 vegur",
+        "connect-time": "0",
+        "x-request-start": "1507032897482",
+        "total-route-time": "0",
+        "content-length": "377"
+    },
+    "user": {
+        "name": "Jim",
+        "username": "jim@email.com",
+        "email": "jim@email.com",
+        "createdAt": "2017-09-21T08:21:28.007Z",
+        "updatedAt": "2017-10-03T12:09:01.551Z",
+        "fcm_token": "d84vsHomaz4:APA91bGc_CJnUItY8mDARvF2CLjn7FOxPU16bB0uZr7DLoZ1pgw3T8NVC3b7dDI945lrZ2OgoLs6_cwUDfCWV1lgILFKchPhggn6dEV89z67c5-Qicn3Nx7Xcb95wdqKJ4X3t8wLdkoi",
+        "ACL": {
+            "*": {
+                "read": "true"
+            },
+            "QiR90vrhcR": {
+                "read": "true",
+                "write": "true"
+            }
+        },
+        "sessionToken": "r:bc62398c1da0ad288f55b025c51e5aeb",
+        "objectId": "QiR90vrhcR"
+    },
+    "installationId": "7b96b0e1-fa59-4899-a942-825a69fbea28"
+}
 
     def test_post_webhook_parse(self):
         url = reverse('stories:parse')
-        response = self.client.post(url, self.parse_story)
-        self.assertEqual(response.status_code. status.HTTP_201_CREATED)
+        response = self.client.post(url, data=self.parse_story, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
