@@ -186,20 +186,17 @@ class ParseStoryTest(APITestCase):
             {
                 "__type": "File",
                 "name": "f54d6bee2fffddd5a1df2c26a8c5586a_IMG-20171003-WA0019.jpg",
-                "url": "http://creporter-server.herokuapp.com/parse/files/11235813/f54d\
-                6bee2fffddd5a1df2c26a8c5586a_IMG-20171003-WA0019.jpg"
+                "url": "http://creporter-server.herokuapp.com/parse/files/11235813/f54d6bee2fffddd5a1df2c26a8c5586a_IMG-20171003-WA0019.jpg"
             },
             {
                 "__type": "File",
                 "name": "66cb1dee3df2d7d3aff2a5cffd05f103_IMG-20171003-WA0018.jpg",
-                "url": "http://creporter-server.herokuapp.com/parse/files/11235813/66cb\
-                1dee3df2d7d3aff2a5cffd05f103_IMG-20171003-WA0018.jpg"
+                "url": "http://creporter-server.herokuapp.com/parse/files/11235813/66cb1dee3df2d7d3aff2a5cffd05f103_IMG-20171003-WA0018.jpg"
             },
             {
                 "__type": "File",
                 "name": "f8df0f1ff10c6d9c16e51ac8ac8966c6_IMG-20171003-WA0020.jpg",
-                "url": "http://creporter-server.herokuapp.com/parse/files/11235813/f8df\
-                0f1ff10c6d9c16e51ac8ac8966c6_IMG-20171003-WA0020.jpg"
+                "url": "http://creporter-server.herokuapp.com/parse/files/11235813/f8df0f1ff10c6d9c16e51ac8ac8966c6_IMG-20171003-WA0020.jpg"
             }
         ],
         "author": "QiR90vrhcR",
@@ -267,13 +264,10 @@ class ParseStoryTest(APITestCase):
         """Test whether multiple media urls will get posted to the endpoint."""
         url = reverse('stories:parse')
         response = self.client.post(url, data=self.parse_story, format='json')
-        self.assertIn("http://creporter-server.herokuapp.com/parse/files/11235813/66cb1dee3df2d7d3\
-        aff2a5cffd05f103_IMG-20171003-WA0018.jpg",
+        self.assertIn("http://creporter-server.herokuapp.com/parse/files/11235813/66cb1dee3df2d7d3aff2a5cffd05f103_IMG-20171003-WA0018.jpg",
                       response.data["local_media_paths"])
-        self.assertIn("http://creporter-server.herokuapp.com/parse/files/11235813/f8df0f1ff10c6d9c\
-        16e51ac8ac8966c6_IMG-20171003-WA0020.jpg",
+        self.assertIn("http://creporter-server.herokuapp.com/parse/files/11235813/f8df0f1ff10c6d9c16e51ac8ac8966c6_IMG-20171003-WA0020.jpg",
                       response.data["local_media_paths"])
-        self.assertIn("http://creporter-server.herokuapp.com/parse/files/11235813/f8df0f1ff10c6d9c1\
-        6e51ac8ac8966c6_IMG-20171003-WA0020.jpg",
+        self.assertIn("http://creporter-server.herokuapp.com/parse/files/11235813/f8df0f1ff10c6d9c16e51ac8ac8966c6_IMG-20171003-WA0020.jpg",
                       response.data["local_media_paths"])
         
