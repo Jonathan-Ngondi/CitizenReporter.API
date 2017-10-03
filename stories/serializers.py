@@ -14,6 +14,7 @@ class ParseStorySerializer(serializers.Serializer):
     author = serializers.CharField()
     uploaded = serializers.BooleanField()
     updated = serializers.DateTimeField()
+    local_media_paths = serializers.ListField(child=serializers.CharField())
 
     def create(self, validated_data):
          return Story(**validated_data)

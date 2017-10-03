@@ -39,7 +39,9 @@ class ParseStoryCreateView(APIView):
         data["where"] = data["location"]
         data["updated"] = data["updatedAt"]
         data["created"] = data["createdAt"]
-        del data["localID"], data["assignment"], 
+        data["local_media_paths"] = [f["url"] for f in data["media"]]
+        
+        del data["localID"], data["assignment"], data["media"],
         data["className"], data["location"], data["updatedAt"], data["createdAt"]
         serializer = ParseStorySerializer(data=data)
         
