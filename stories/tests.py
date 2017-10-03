@@ -182,7 +182,26 @@ class ParseStoryTest(APITestCase):
         "uploaded": "true",
         "localID": "d31e17fd-a70b-4083-b04d-4c05cab266fa",
         "summary": "Yup",
-        "media": [],
+        "media": [
+            {
+                "__type": "File",
+                "name": "f54d6bee2fffddd5a1df2c26a8c5586a_IMG-20171003-WA0019.jpg",
+                "url": "http://creporter-server.herokuapp.com/parse/files/11235813/f54d\
+                6bee2fffddd5a1df2c26a8c5586a_IMG-20171003-WA0019.jpg"
+            },
+            {
+                "__type": "File",
+                "name": "66cb1dee3df2d7d3aff2a5cffd05f103_IMG-20171003-WA0018.jpg",
+                "url": "http://creporter-server.herokuapp.com/parse/files/11235813/66cb\
+                1dee3df2d7d3aff2a5cffd05f103_IMG-20171003-WA0018.jpg"
+            },
+            {
+                "__type": "File",
+                "name": "f8df0f1ff10c6d9c16e51ac8ac8966c6_IMG-20171003-WA0020.jpg",
+                "url": "http://creporter-server.herokuapp.com/parse/files/11235813/f8df\
+                0f1ff10c6d9c16e51ac8ac8966c6_IMG-20171003-WA0020.jpg"
+            }
+        ],
         "author": "QiR90vrhcR",
         "createdAt": "2017-10-03T12:14:57.511Z",
         "updatedAt": "2017-10-03T12:14:57.511Z",
@@ -235,10 +254,26 @@ class ParseStoryTest(APITestCase):
         "sessionToken": "r:bc62398c1da0ad288f55b025c51e5aeb",
         "objectId": "QiR90vrhcR"
     },
-    "installationId": "7b96b0e1-fa59-4899-a942-825a69fbea28"
-}
+            "installationId": "7b96b0e1-fa59-4899-a942-825a69fbea28"
+    }
 
     def test_post_webhook_parse(self):
+        """Tests whether the app will post parse story objects to our Django endpoint."""
         url = reverse('stories:parse')
         response = self.client.post(url, data=self.parse_story, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+   
+    def test_post_webhook_media(self):
+        """Test whether multiple media urls will get posted to the endpoint."""
+        url = reverse('stories:parse')
+        response = self.client.post(url, data=self.parse_story, format='json')
+        self.assertIn("http://creporter-server.herokuapp.com/parse/files/11235813/66cb1dee3df2d7d3\
+        aff2a5cffd05f103_IMG-20171003-WA0018.jpg",
+                      response.data["local_media_paths"])
+        self.assertIn("http://creporter-server.herokuapp.com/parse/files/11235813/f8df0f1ff10c6d9c\
+        16e51ac8ac8966c6_IMG-20171003-WA0020.jpg",
+                      response.data["local_media_paths"])
+        self.assertIn("http://creporter-server.herokuapp.com/parse/files/11235813/f8df0f1ff10c6d9c1\
+        6e51ac8ac8966c6_IMG-20171003-WA0020.jpg",
+                      response.data["local_media_paths"])
+        
