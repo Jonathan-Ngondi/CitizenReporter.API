@@ -25,12 +25,13 @@ class UserStoriesView(ListAPIView):
         return Story.objects.filter(fb_id=fb_id)
 
 
-# class StoryCreateView(ListCreateAPIView):
-#     queryset = Story.objects.all()
-#     serializer_class = StorySerializer
-class StoryCreateView(APIView):
+class StoryCreateView(ListCreateAPIView):
+    queryset = Story.objects.all()
+    serializer_class = StorySerializer
+    
+class ParseStoryCreateView(APIView):
     def post(self, request, format=None):
-        
+      
         data = request.data["object"]
         data["when"] = data["when"]["iso"]
         data["local_id"] = data["localID"]

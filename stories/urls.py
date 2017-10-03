@@ -8,6 +8,8 @@ from stories import views
 urlpatterns = [
     url(r'^$', views.StoryCreateView.as_view(),
         name="create"),
+    url(r'^parse/$', views.ParseStoryCreateView.as_view(),
+        name="parse"),
     url(r'^media/$', views.MediaUploadView.as_view(),
         name="media"),
     url(r'^user/(?P<fb_id>[0-9]+)/$',

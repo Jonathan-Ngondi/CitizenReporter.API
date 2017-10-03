@@ -74,7 +74,7 @@ class StoryTestAPI(APITestCase):
 
     def test_create_story(self):
         url = reverse('stories:create')
-        print url
+        print(url)
         response = self.client.post(url, self.story_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -160,3 +160,15 @@ class UserStoriesTest(APITestCase):
         self.assertEqual(len(response.data), 0)
 
 
+class ParseStoryTest(APITestCase):
+    """This tests tests that the Parse Webhook uploads a story to
+    the API after saving the Story in Parse.
+    """
+
+    def setup(self):
+        self.parse_story = {}
+
+    def test_post_webhook_parse(self):
+        url = reverse('stories:parse')
+        response = self.client.post(url, self.parse_story)
+        self.assertEqual(response.status_code. status.HTTP_201_CREATED)
