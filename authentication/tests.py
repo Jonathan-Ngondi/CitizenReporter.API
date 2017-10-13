@@ -108,7 +108,7 @@ class TestUpdateLocation(APITestCase):
     def test_update_location(self):
         profile = ReporterProfile.objects.latest('id')
         url = reverse('user:update', kwargs={'uid': profile.uid})
-        print url
+        print(url)
         data = {
             'location': '32, 23'
         }
